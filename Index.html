@@ -64,7 +64,6 @@
   .nav { display: flex; align-items: center; justify-content: space-between; height: 75px; position: relative; }
   
   .logo-container { display: flex; align-items: center; text-decoration: none; z-index: 2; cursor: pointer; }
-  /* Logo más grande en PC */
   .logo-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--blanco); background: var(--blanco); transition: transform 0.3s; }
   .logo-img:hover { transform: scale(1.05); }
 
@@ -105,16 +104,15 @@
       transform: translateX(-50%); 
       background: var(--rojo); 
       color: var(--blanco) !important; 
-      padding: 8px 20px; /* Botón un poquito más grande */
+      padding: 8px 20px; 
       border-radius: 4px; 
       text-decoration: none; 
-      font-size: 13px; /* Letra un poquito más grande */
+      font-size: 13px; 
       font-weight: 800; 
       text-transform: uppercase; 
     }
     .mobile-center-btn:active { transform: translateX(-50%) scale(0.95); }
     
-    /* Logo más grande en celular sin el texto */
     .logo-img { width: 50px; height: 50px; } 
   }
 
@@ -174,7 +172,7 @@
   .btn-cotizar { background: transparent; color: var(--rojo); border: 2px solid var(--rojo); padding: 10px 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
   .btn-cotizar:hover { background: var(--rojo); color: var(--blanco); }
 
-  /* REQUISITOS (AHORA EN 2 COLUMNAS EN MÓVIL) */
+  /* REQUISITOS (2 COLUMNAS EN MÓVIL) */
   #requisitos { background: var(--negro-tarjeta); }
   .grid-requisitos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
   .requisito-card { background: var(--negro-fondo); padding: 30px 20px; text-align: center; border-radius: var(--radio); border-bottom: 3px solid var(--rojo); transition: transform 0.3s; }
@@ -186,7 +184,7 @@
 
   @media(max-width: 768px) {
     .grid-requisitos { 
-      grid-template-columns: repeat(2, 1fr); /* Fuerza 2 columnas en móvil */
+      grid-template-columns: repeat(2, 1fr); 
       gap: 12px; 
     }
     .requisito-card { padding: 20px 10px; }
@@ -309,8 +307,22 @@
   .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
   .reveal.active { opacity: 1; transform: translateY(0); }
 
-  /* OCULTAR BADGE NETLIFY */
-  iframe[src*="netlify"], .netlify-badge, div[id*="netlify"] { display: none !important; }
+  /* ==================== OCULTAR BADGE NETLIFY (REFORZADO) ==================== */
+  iframe[src*="netlify"],
+  iframe[title*="Netlify"],
+  .netlify-badge,
+  div[id*="netlify"],
+  a[href*="netlify.com"][target="_blank"],
+  div[style*="position: fixed"][style*="bottom: 0px"][style*="right: 0px"],
+  div[style*="position:fixed"][style*="bottom:0px"][style*="right:0px"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    z-index: -9999 !important;
+  }
 </style>
 </head>
 <body>
@@ -658,7 +670,7 @@
   </div>
 </footer>
 
-<!-- MODAL DE COTIZACIÓN OPTIMIZADO -->
+<!-- MODAL DE COTIZACIÓN -->
 <div class="modal-overlay" id="modalOverlay"></div>
 <div class="modal-cotizar" id="modalCotizar">
   <button class="btn-cerrar-modal" id="btnCerrarModal">✕</button>
