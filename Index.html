@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motos BERA | Ciudad Ojeda</title>
+<meta name="description" content="Descubre la pasión sobre dos ruedas. Motos BERA en Ciudad Ojeda. Repuestos originales y 1 año de garantía.">
+
+<!-- ================= OPEN GRAPH ================= -->
+<meta property="og:title" content="Motos BERA 🏍️ | Pasión sobre dos ruedas">
+<meta property="og:description" content="Encuentra la moto de tus sueños en Ciudad Ojeda. Repuestos originales y 1 año de garantía. ¡Cotiza ya!">
+<meta property="og:image" content="https://i.postimg.cc/gcKMZ2Ps/1793399672496.jpg">
+<meta property="og:url" content="https://motos-bera-demo.netlify.app">
+<meta property="og:type" content="website">
+<!-- ============================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --negro-fondo: #111111; 
+    --negro-tarjeta: #1c1c1c;
+    --rojo: #d32f2f; 
+    --rojo-hover: #b71c1c;
+    --amarillo: #fbc02d;
+    --blanco: #ffffff;
+    --gris-texto: #aaaaaa;
+    --radio: 8px;
+    --sombra: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  section, [id] { scroll-margin-top: 80px; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--negro-fondo);
+    color: var(--blanco);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .contenedor { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+  /* ==================== SISTEMA DE VISTAS ==================== */
+  .vista { display: none; }
+  .vista.activa { 
+    display: block; 
+    animation: fadeInPage 0.5s ease-in-out forwards; 
+  }
+  @keyframes fadeInPage { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* NAV */
+  header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 50;
+    background: rgba(17, 17, 17, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--rojo);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 75px; position: relative; }
+  
+  .logo-container { display: flex; align-items: center; text-decoration: none; z-index: 2; cursor: pointer; }
+  /* Logo más grande en PC */
+  .logo-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--blanco); background: var(--blanco); transition: transform 0.3s; }
+  .logo-img:hover { transform: scale(1.05); }
+
+  .nav-links { display: flex; gap: 25px; align-items: center; }
+  .nav-links a { color: var(--blanco); text-decoration: none; font-size: 14px; font-weight: 700; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
+  .nav-links a:hover { color: var(--amarillo); }
+  
+  .btn-nav { background: var(--rojo); color: var(--blanco) !important; padding: 10px 25px; border-radius: 4px; transition: background 0.3s, transform 0.2s; margin-left: 10px; }
+  .btn-nav:hover { background: var(--rojo-hover); transform: translateY(-2px); }
+
+  /* HAMBURGUESA */
+  .hamburger-btn { display: none; background: none; border: none; color: var(--blanco); font-size: 28px; cursor: pointer; padding: 5px; z-index: 2; transition: transform 0.2s; }
+  .hamburger-btn:active { transform: scale(0.9); }
+  .mobile-center-btn { display: none; }
+
+  /* MENÚ MÓVIL */
+  .mobile-menu {
+    display: flex; flex-direction: column; position: absolute;
+    top: 75px; left: 0; width: 100%; background: var(--negro-tarjeta);
+    border-bottom: 2px solid var(--rojo); box-shadow: 0 10px 15px rgba(0,0,0,0.5); z-index: 49;
+    max-height: 0; opacity: 0; visibility: hidden; overflow: hidden;
+    padding: 0 20px; transform: translateY(-15px);
+    transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease, padding 0.3s ease, visibility 0.4s;
+  }
+  .mobile-menu.activo { max-height: 350px; opacity: 1; visibility: visible; padding: 10px 20px 20px; transform: translateY(0); }
+  .mobile-menu a { color: var(--blanco); text-decoration: none; font-size: 15px; font-weight: 700; padding: 15px 0; border-bottom: 1px solid #333; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* AJUSTE MÓVIL */
+  @media(max-width: 900px) { 
+    .nav-links { display: none; }
+    .hamburger-btn { display: block; }
+    
+    .mobile-center-btn { 
+      display: inline-block; 
+      position: absolute; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      background: var(--rojo); 
+      color: var(--blanco) !important; 
+      padding: 8px 20px; /* Botón un poquito más grande */
+      border-radius: 4px; 
+      text-decoration: none; 
+      font-size: 13px; /* Letra un poquito más grande */
+      font-weight: 800; 
+      text-transform: uppercase; 
+    }
+    .mobile-center-btn:active { transform: translateX(-50%) scale(0.95); }
+    
+    /* Logo más grande en celular sin el texto */
+    .logo-img { width: 50px; height: 50px; } 
+  }
+
+  /* HERO */
+  .hero {
+    height: 100vh; min-height: 600px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    display: flex; align-items: center; justify-content: center; text-align: center; padding-top: 75px;
+  }
+  .hero-content { max-width: 900px; padding: 20px; }
+  
+  .hero h1 { font-size: clamp(40px, 6vw, 75px); font-weight: 900; line-height: 1.1; margin-bottom: 20px; font-style: italic; text-transform: uppercase; }
+  .hero h1 span { color: var(--rojo); text-shadow: 0 0 20px rgba(211,47,47,0.5); }
+  .hero p { font-size: 18px; font-weight: 400; margin-bottom: 40px; color: var(--gris-texto); }
+  
+  .btn-hero { display: inline-block; background: var(--rojo); color: var(--blanco); padding: 18px 45px; font-size: 16px; font-weight: 800; text-transform: uppercase; text-decoration: none; transition: all 0.3s; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 5px 15px rgba(211,47,47,0.4); }
+  .btn-hero:hover { background: var(--rojo-hover); transform: scale(1.05); }
+
+  /* REDUCCIÓN DEL HERO EN MÓVIL */
+  @media(max-width: 768px) {
+    .hero h1 { font-size: 32px; } 
+    .hero p { font-size: 14px; margin-bottom: 25px; }
+    .btn-hero { padding: 14px 30px; font-size: 13px; width: 85%; } 
+  }
+
+  /* SECCIONES GENERALES */
+  section { padding: 90px 0; }
+  .titulo-seccion { text-align: center; margin-bottom: 50px; }
+  .titulo-seccion h2 { font-size: clamp(30px, 4vw, 45px); font-weight: 900; text-transform: uppercase; color: var(--blanco); margin-bottom: 10px; font-style: italic; }
+  .titulo-seccion h2 span { color: var(--rojo); }
+  .titulo-seccion p { color: var(--gris-texto); font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+  /* CATÁLOGO */
+  #catalogo { background: var(--negro-fondo); }
+  .grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+  
+  .producto-card {
+    background: var(--negro-tarjeta); border-radius: var(--radio); overflow: hidden;
+    box-shadow: var(--sombra); border: 1px solid #333;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex; flex-direction: column;
+  }
+  .producto-card:hover { transform: translateY(-8px); border-color: var(--rojo); box-shadow: 0 15px 35px rgba(211, 47, 47, 0.2); }
+  
+  .producto-img { height: 220px; background: #222; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .producto-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 0.4s; }
+  .producto-card:hover .producto-img img { transform: scale(1.1); }
+  .producto-img::after { content: "Foto Moto"; position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; font-size: 10px; border-radius: 4px; }
+  
+  .producto-info { padding: 20px; flex: 1; display: flex; flex-direction: column; text-align: center; }
+  .producto-info h3 { font-size: 24px; font-weight: 900; color: var(--blanco); margin-bottom: 5px; text-transform: uppercase; }
+  .producto-info .precio { font-size: 22px; font-weight: 700; color: var(--amarillo); margin-bottom: 20px; }
+  
+  .acciones-producto { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
+  .btn-especificaciones { background: transparent; color: var(--gris-texto); border: 2px solid #444; padding: 10px 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+  .btn-especificaciones:hover { border-color: var(--blanco); color: var(--blanco); }
+  .btn-cotizar { background: transparent; color: var(--rojo); border: 2px solid var(--rojo); padding: 10px 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; border-radius: 4px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+  .btn-cotizar:hover { background: var(--rojo); color: var(--blanco); }
+
+  /* REQUISITOS (AHORA EN 2 COLUMNAS EN MÓVIL) */
+  #requisitos { background: var(--negro-tarjeta); }
+  .grid-requisitos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .requisito-card { background: var(--negro-fondo); padding: 30px 20px; text-align: center; border-radius: var(--radio); border-bottom: 3px solid var(--rojo); transition: transform 0.3s; }
+  .requisito-card:hover { transform: translateY(-5px); }
+  .requisito-card .icono { font-size: 40px; margin-bottom: 15px; }
+  .requisito-card h4 { font-size: 16px; font-weight: 700; color: var(--blanco); }
+  .requisito-card p { font-size: 13px; color: var(--gris-texto); margin-top: 5px; }
+  .aviso-requisitos { text-align: center; margin-top: 30px; font-size: 16px; color: var(--amarillo); font-weight: 700; }
+
+  @media(max-width: 768px) {
+    .grid-requisitos { 
+      grid-template-columns: repeat(2, 1fr); /* Fuerza 2 columnas en móvil */
+      gap: 12px; 
+    }
+    .requisito-card { padding: 20px 10px; }
+    .requisito-card .icono { font-size: 30px; margin-bottom: 10px; }
+    .requisito-card h4 { font-size: 13px; }
+    .requisito-card p { font-size: 11px; }
+  }
+
+  /* CLIENTES FELICES (CARRUSEL) */
+  #clientes { background: var(--negro-fondo); }
+  .clientes-wrapper { position: relative; width: 100%; border-radius: var(--radio); overflow: hidden; }
+  .clientes-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; gap: 15px; padding-bottom: 10px; }
+  .clientes-container::-webkit-scrollbar { display: none; }
+  
+  .cliente-card { 
+    flex: 0 0 100%; 
+    scroll-snap-align: start; 
+    height: 350px; 
+    background: #333; 
+    border-radius: var(--radio); 
+    position: relative; 
+    overflow: hidden; 
+    border: 2px solid transparent; 
+    transition: border 0.3s; 
+  }
+  .cliente-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: transform 0.3s; }
+  .cliente-card:hover { border-color: var(--rojo); }
+  .cliente-card:hover img { transform: scale(1.05); }
+  .cliente-card::after { content: "Cliente BERA"; position: absolute; bottom: 15px; left: 15px; background: var(--rojo); color: white; padding: 6px 14px; font-size: 14px; font-weight: 700; border-radius: 4px; z-index: 2; }
+
+  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; border-radius: 50%; background: rgba(0,0,0,0.6); border: 1px solid #444; color: white; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: all 0.3s ease; backdrop-filter: blur(4px); }
+  .carousel-btn:hover { background: var(--rojo); border-color: var(--rojo); }
+  .carousel-btn.prev { left: 15px; }
+  .carousel-btn.next { right: 15px; }
+  .carousel-btn.hidden { opacity: 0; pointer-events: none; }
+
+  @media(max-width: 768px) {
+    .cliente-card { height: 250px; }
+    .cliente-card::after { font-size: 11px; padding: 4px 10px; bottom: 10px; left: 10px; }
+  }
+
+  /* UBICACIÓN */
+  #ubicacion { background: var(--negro-tarjeta); }
+  .mapa-card { background: var(--negro-fondo); border-radius: var(--radio); padding: 50px 30px; text-align: center; max-width: 700px; margin: 0 auto; border: 1px solid #333; box-shadow: var(--sombra); border-top: 4px solid var(--rojo); }
+  .mapa-card h3 { font-size: 28px; font-weight: 900; color: var(--blanco); margin-bottom: 10px; }
+  .mapa-card p { color: var(--gris-texto); font-size: 16px; margin-bottom: 30px; line-height: 1.8; }
+  .btn-mapa { background: var(--rojo); color: white; text-decoration: none; padding: 15px 30px; border-radius: 4px; font-weight: 700; font-size: 16px; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; width: 100%; justify-content: center; }
+  .btn-mapa:hover { background: var(--rojo-hover); transform: translateY(-3px); }
+
+  /* ==================== PÁGINAS INTERNAS (VISTAS) ==================== */
+  .header-pagina-interna { background: var(--negro-fondo); padding: 100px 20px 20px; border-bottom: 1px solid #333; margin-bottom: 40px; }
+  .btn-volver { display: inline-flex; align-items: center; gap: 8px; color: var(--blanco); text-decoration: none; font-weight: 700; cursor: pointer; background: none; border: none; font-size: 16px; font-family: 'Montserrat', sans-serif; transition: color 0.3s; }
+  .btn-volver:hover { color: var(--rojo); }
+
+  .detalle-contenedor { max-width: 900px; margin: 0 auto 80px; padding: 0 20px; }
+  .detalle-card { background: var(--negro-tarjeta); border-radius: var(--radio); overflow: hidden; box-shadow: var(--sombra); border-top: 5px solid var(--rojo); }
+  
+  .carousel-wrapper { position: relative; width: 100%; height: 400px; overflow: hidden; background: #000; }
+  .carousel-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; width: 100%; height: 100%; }
+  .carousel-container::-webkit-scrollbar { display: none; }
+  .carousel-img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; }
+  
+  .carousel-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 20px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: all 0.3s ease; cursor: pointer; }
+  .dot.active { background: var(--rojo); transform: scale(1.3); }
+
+  .detalle-info { padding: 40px; }
+  .detalle-info h2 { font-size: 36px; color: var(--blanco); margin-bottom: 10px; font-style: italic; text-transform: uppercase; font-weight: 900; }
+  .detalle-precio { font-size: 28px; font-weight: 700; color: var(--amarillo); margin-bottom: 20px; display: block; }
+  .detalle-desc { font-size: 16px; color: var(--gris-texto); line-height: 1.8; margin-bottom: 30px; }
+  
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+  .spec-item { background: var(--negro-fondo); padding: 15px; border-radius: 6px; border-left: 3px solid var(--rojo); }
+  .spec-label { display: block; font-size: 12px; color: var(--gris-texto); text-transform: uppercase; font-weight: 700; margin-bottom: 5px; }
+  .spec-valor { font-size: 16px; color: var(--blanco); font-weight: 700; }
+
+  .btn-reservar-grande { display: block; width: 100%; background: var(--rojo); color: var(--blanco); text-align: center; padding: 18px; font-size: 16px; font-weight: 800; text-transform: uppercase; border-radius: 4px; border: none; cursor: pointer; transition: background 0.3s; }
+  .btn-reservar-grande:hover { background: var(--rojo-hover); }
+
+  @media(max-width: 768px) {
+    .carousel-wrapper { height: 250px; }
+    .detalle-info { padding: 25px 20px; }
+    .detalle-info h2 { font-size: 28px; }
+    .specs-grid { grid-template-columns: 1fr; }
+    
+    .acciones-producto { gap: 5px; }
+    .btn-especificaciones, .btn-cotizar { font-size: 10px; padding: 8px 2px; }
+  }
+
+  /* FOOTER */
+  footer { background: #000; color: var(--blanco); padding: 50px 0 30px; text-align: center; border-top: 1px solid #333; }
+  .footer-social { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+  .footer-social a { display: inline-flex; align-items: center; gap: 8px; color: var(--blanco); text-decoration: none; font-size: 14px; font-weight: 600; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; transition: background 0.3s, transform 0.3s; }
+  .footer-social a:hover { background: var(--rojo); transform: translateY(-3px); }
+  .footer-social svg { width: 20px; height: 20px; fill: currentColor; }
+  footer p { font-size: 14px; color: var(--gris-texto); margin-bottom: 5px; }
+
+  /* MODAL DE COTIZACIÓN */
+  .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+  .modal-overlay.activo { opacity: 1; visibility: visible; }
+  
+  .modal-cotizar { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%) scale(0.95); background: var(--negro-tarjeta); width: 90%; max-width: 450px; border-radius: var(--radio); padding: 40px; z-index: 101; box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid #444; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .modal-cotizar.activo { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+  
+  .modal-cotizar h3 { font-size: 26px; font-weight: 900; color: var(--blanco); margin-bottom: 5px; text-align: center; text-transform: uppercase; }
+  .modal-cotizar .subtitle { font-size: 14px; color: var(--amarillo); text-align: center; margin-bottom: 25px; font-weight: 700; }
+  
+  .form-group { margin-bottom: 15px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; color: var(--gris-texto); }
+  .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #444; border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none; background: var(--negro-fondo); color: var(--blanco); }
+  .form-group input:focus, .form-group select:focus { border-color: var(--rojo); }
+  
+  .btn-cerrar-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--gris-texto); transition: color 0.2s; }
+  .btn-cerrar-modal:hover { color: var(--rojo); }
+  
+  .btn-enviar-cotizacion { width: 100%; background: #25D366; color: white; border: none; padding: 15px; font-size: 16px; font-weight: 800; border-radius: 4px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; transition: background 0.3s; text-transform: uppercase; }
+  .btn-enviar-cotizacion:hover { background: #1ebe52; }
+
+  /* ANIMACIONES SCROLL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+  .reveal.active { opacity: 1; transform: translateY(0); }
+
+  /* OCULTAR BADGE NETLIFY */
+  iframe[src*="netlify"], .netlify-badge, div[id*="netlify"] { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="contenedor">
+    <nav class="nav">
+      <a class="logo-container" onclick="mostrarVista('inicio')">
+        <img src="https://i.postimg.cc/gcKMZ2Ps/1793399672496.jpg" alt="BERA Motorcycles" class="logo-img">
+      </a>
+      
+      <div class="nav-links">
+        <a onclick="mostrarVista('inicio', 'catalogo')">Modelos</a>
+        <a onclick="mostrarVista('inicio', 'requisitos')">Requisitos</a>
+        <a onclick="mostrarVista('inicio', 'clientes')">Clientes</a>
+        <a onclick="mostrarVista('inicio', 'ubicacion')">Ubicación</a>
+        <a onclick="mostrarVista('inicio', 'catalogo')" class="btn-nav">Cotizar</a>
+      </div>
+
+      <a onclick="mostrarVista('inicio', 'catalogo')" class="mobile-center-btn">Cotizar</a>
+      <button class="hamburger-btn" id="hamburgerBtn">☰</button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a onclick="mostrarVista('inicio', 'catalogo'); cerrarMenu()">Modelos</a>
+      <a onclick="mostrarVista('inicio', 'requisitos'); cerrarMenu()">Requisitos</a>
+      <a onclick="mostrarVista('inicio', 'clientes'); cerrarMenu()">Clientes</a>
+      <a onclick="mostrarVista('inicio', 'ubicacion'); cerrarMenu()">Ubicación</a>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== VISTA 1: INICIO ==================== -->
+<main id="vista-inicio" class="vista activa">
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Descubre la pasión <br><span>sobre dos ruedas</span></h1>
+      <p>Encuentra la moto de tus sueños en Ciudad Ojeda. Repuestos originales y 1 año de garantía.</p>
+      <a onclick="document.getElementById('catalogo').scrollIntoView()" class="btn-hero">Ver Modelos y Precios</a>
+    </div>
+  </section>
+
+  <section id="catalogo">
+    <div class="contenedor">
+      <div class="titulo-seccion reveal">
+        <h2>Nuestros <span>Modelos</span></h2>
+        <p>Precios especiales en modelos seleccionados. Promo válida en Ciudad Ojeda.</p>
+      </div>
+
+      <div class="grid-productos">
+        <!-- SBR -->
+        <div class="producto-card reveal">
+          <div class="producto-img"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="SBR"></div>
+          <div class="producto-info">
+            <h3>SBR</h3>
+            <div class="precio">Ref. $1,080</div>
+            <div class="acciones-producto">
+              <button class="btn-especificaciones" onclick="mostrarVista('moto-sbr')">Ver Detalles</button>
+              <button class="btn-cotizar" onclick="abrirModal('SBR', '1080')">Cotizar</button>
+            </div>
+          </div>
+        </div>
+        <!-- LEÓN -->
+        <div class="producto-card reveal">
+          <div class="producto-img"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="León"></div>
+          <div class="producto-info">
+            <h3>LEÓN</h3>
+            <div class="precio">Ref. $1,200</div>
+            <div class="acciones-producto">
+              <button class="btn-especificaciones" onclick="mostrarVista('moto-leon')">Ver Detalles</button>
+              <button class="btn-cotizar" onclick="abrirModal('León', '1200')">Cotizar</button>
+            </div>
+          </div>
+        </div>
+        <!-- BRF -->
+        <div class="producto-card reveal">
+          <div class="producto-img"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="BRF"></div>
+          <div class="producto-info">
+            <h3>BRF</h3>
+            <div class="precio">Ref. $1,060</div>
+            <div class="acciones-producto">
+              <button class="btn-especificaciones" onclick="mostrarVista('moto-brf')">Ver Detalles</button>
+              <button class="btn-cotizar" onclick="abrirModal('BRF', '1060')">Cotizar</button>
+            </div>
+          </div>
+        </div>
+        <!-- MILÁN -->
+        <div class="producto-card reveal">
+          <div class="producto-img"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Milán"></div>
+          <div class="producto-info">
+            <h3>MILÁN</h3>
+            <div class="precio">Ref. $1,220</div>
+            <div class="acciones-producto">
+              <button class="btn-especificaciones" onclick="mostrarVista('moto-milan')">Ver Detalles</button>
+              <button class="btn-cotizar" onclick="abrirModal('Milán', '1220')">Cotizar</button>
+            </div>
+          </div>
+        </div>
+        <!-- BR200 -->
+        <div class="producto-card reveal">
+          <div class="producto-img"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="BR200"></div>
+          <div class="producto-info">
+            <h3>BR200</h3>
+            <div class="precio">Ref. $1,450</div>
+            <div class="acciones-producto">
+              <button class="btn-especificaciones" onclick="mostrarVista('moto-br200')">Ver Detalles</button>
+              <button class="btn-cotizar" onclick="abrirModal('BR200', '1450')">Cotizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="requisitos">
+    <div class="contenedor">
+      <div class="titulo-seccion reveal">
+        <h2>Requisitos para <span>Adquirir</span></h2>
+        <p>Ten listos tus documentos para agilizar tu compra.</p>
+      </div>
+
+      <div class="grid-requisitos">
+        <div class="requisito-card reveal"><div class="icono">🪪</div><h4>Cédula de Identidad</h4><p>Original y Fotocopia</p></div>
+        <div class="requisito-card reveal"><div class="icono">🪪</div><h4>Licencia de Conducir</h4><p>Original y Fotocopia</p></div>
+        <div class="requisito-card reveal"><div class="icono">📄</div><h4>RIF</h4><p>Original y Fotocopia</p></div>
+        <div class="requisito-card reveal"><div class="icono">🏥</div><h4>Carta Médica</h4><p>Original y Fotocopia</p></div>
+      </div>
+      <div class="aviso-requisitos reveal">* Todos los documentos deben presentarse en Original y Fotocopia.</div>
+    </div>
+  </section>
+
+  <section id="clientes">
+    <div class="contenedor">
+      <div class="titulo-seccion reveal">
+        <h2>Clientes <span>BERA</span></h2>
+        <p>La alegría de nuestros clientes al estrenar su moto es nuestra mejor carta de presentación.</p>
+      </div>
+
+      <div class="clientes-wrapper reveal">
+        <button class="carousel-btn prev hidden" onclick="scrollClientes(this, -1)">❮</button>
+        <div class="clientes-container" onscroll="updateClientesArrows(this.parentElement)">
+          <div class="cliente-card"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente 1"></div>
+          <div class="cliente-card"><img src="https://images.unsplash.com/photo-1558980664-10ea909e061e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente 2"></div>
+          <div class="cliente-card"><img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente 3"></div>
+          <div class="cliente-card"><img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente 4"></div>
+          <div class="cliente-card"><img src="https://images.unsplash.com/photo-1558980394-0e4577599146?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente 5"></div>
+        </div>
+        <button class="carousel-btn next" onclick="scrollClientes(this, 1)">❯</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="ubicacion">
+    <div class="contenedor">
+      <div class="titulo-seccion reveal"><h2>Nuestra <span>Ubicación</span></h2></div>
+      
+      <div class="mapa-card reveal">
+        <h3>Motos Bera Ciudad Ojeda</h3>
+        <p>Av. Intercomunal, Sector Las Morochas,<br>Calle Cardón.<br>Ciudad Ojeda, Estado Zulia.</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Motos+Bera+Ciudad+Ojeda" target="_blank" class="btn-mapa">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Cómo llegar en Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ==================== VISTAS INTERNAS: MOTOS ==================== -->
+
+<!-- SBR -->
+<main id="vista-moto-sbr" class="vista">
+  <div class="header-pagina-interna"><div class="contenedor"><button class="btn-volver" onclick="mostrarVista('inicio', 'catalogo')">← Volver al Catálogo</button></div></div>
+  <div class="detalle-contenedor">
+    <div class="detalle-card">
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev hidden" onclick="scrollCarousel(this, -1)">❮</button>
+        <div class="carousel-container" onscroll="updateArrows(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+        </div>
+        <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">❯</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <div class="detalle-info">
+        <h2>SBR</h2>
+        <span class="detalle-precio">Ref. $1,080</span>
+        <p class="detalle-desc">La compañera perfecta para tu día a día. Diseño deportivo, bajo consumo y la potencia justa para dominar la ciudad con estilo.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><span class="spec-label">Motor</span><span class="spec-valor">150cc</span></div>
+          <div class="spec-item"><span class="spec-label">Potencia</span><span class="spec-valor">8.5 kW</span></div>
+          <div class="spec-item"><span class="spec-label">Velocidad</span><span class="spec-valor">90 km/h</span></div>
+          <div class="spec-item"><span class="spec-label">Arranque</span><span class="spec-valor">Eléctrico / Pata</span></div>
+        </div>
+        <button class="btn-reservar-grande" onclick="abrirModal('SBR', '1080')">Cotizar esta Moto</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- LEÓN -->
+<main id="vista-moto-leon" class="vista">
+  <div class="header-pagina-interna"><div class="contenedor"><button class="btn-volver" onclick="mostrarVista('inicio', 'catalogo')">← Volver al Catálogo</button></div></div>
+  <div class="detalle-contenedor">
+    <div class="detalle-card">
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev hidden" onclick="scrollCarousel(this, -1)">❮</button>
+        <div class="carousel-container" onscroll="updateArrows(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+        </div>
+        <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">❯</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <div class="detalle-info">
+        <h2>LEÓN</h2>
+        <span class="detalle-precio">Ref. $1,200</span>
+        <p class="detalle-desc">El rey de la carretera. Mayor potencia, frenos de disco doble y una suspensión preparada para cualquier terreno.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><span class="spec-label">Motor</span><span class="spec-valor">150cc</span></div>
+          <div class="spec-item"><span class="spec-label">Potencia</span><span class="spec-valor">13 HP</span></div>
+          <div class="spec-item"><span class="spec-label">Velocidad</span><span class="spec-valor">95 km/h</span></div>
+          <div class="spec-item"><span class="spec-label">Frenos</span><span class="spec-valor">Disco / Disco</span></div>
+        </div>
+        <button class="btn-reservar-grande" onclick="abrirModal('León', '1200')">Cotizar esta Moto</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- BRF -->
+<main id="vista-moto-brf" class="vista">
+  <div class="header-pagina-interna"><div class="contenedor"><button class="btn-volver" onclick="mostrarVista('inicio', 'catalogo')">← Volver al Catálogo</button></div></div>
+  <div class="detalle-contenedor">
+    <div class="detalle-card">
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev hidden" onclick="scrollCarousel(this, -1)">❮</button>
+        <div class="carousel-container" onscroll="updateArrows(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+        </div>
+        <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">❯</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <div class="detalle-info">
+        <h2>BRF</h2>
+        <span class="detalle-precio">Ref. $1,060</span>
+        <p class="detalle-desc">Elegancia y eficiencia. Un modelo versátil que se adapta tanto al trabajo como al paseo. Ideal para quienes buscan un equilibrio perfecto.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><span class="spec-label">Motor</span><span class="spec-valor">150cc</span></div>
+          <div class="spec-item"><span class="spec-label">Potencia</span><span class="spec-valor">11 HP</span></div>
+          <div class="spec-item"><span class="spec-label">Velocidad</span><span class="spec-valor">90 km/h</span></div>
+          <div class="spec-item"><span class="spec-label">Tanque</span><span class="spec-valor">12 L</span></div>
+        </div>
+        <button class="btn-reservar-grande" onclick="abrirModal('BRF', '1060')">Cotizar esta Moto</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- MILÁN -->
+<main id="vista-moto-milan" class="vista">
+  <div class="header-pagina-interna"><div class="contenedor"><button class="btn-volver" onclick="mostrarVista('inicio', 'catalogo')">← Volver al Catálogo</button></div></div>
+  <div class="detalle-contenedor">
+    <div class="detalle-card">
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev hidden" onclick="scrollCarousel(this, -1)">❮</button>
+        <div class="carousel-container" onscroll="updateArrows(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+        </div>
+        <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">❯</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <div class="detalle-info">
+        <h2>MILÁN</h2>
+        <span class="detalle-precio">Ref. $1,220</span>
+        <p class="detalle-desc">Estilo italiano en cada curva. Un diseño aerodinámico y colores vibrantes para quienes quieren destacar en cada esquina.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><span class="spec-label">Motor</span><span class="spec-valor">150cc</span></div>
+          <div class="spec-item"><span class="spec-label">Potencia</span><span class="spec-valor">11.5 HP</span></div>
+          <div class="spec-item"><span class="spec-label">Velocidad</span><span class="spec-valor">95 km/h</span></div>
+          <div class="spec-item"><span class="spec-label">Arranque</span><span class="spec-valor">Eléctrico</span></div>
+        </div>
+        <button class="btn-reservar-grande" onclick="abrirModal('Milán', '1220')">Cotizar esta Moto</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- BR200 -->
+<main id="vista-moto-br200" class="vista">
+  <div class="header-pagina-interna"><div class="contenedor"><button class="btn-volver" onclick="mostrarVista('inicio', 'catalogo')">← Volver al Catálogo</button></div></div>
+  <div class="detalle-contenedor">
+    <div class="detalle-card">
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev hidden" onclick="scrollCarousel(this, -1)">❮</button>
+        <div class="carousel-container" onscroll="updateArrows(this.parentElement)">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="carousel-img">
+        </div>
+        <button class="carousel-btn next" onclick="scrollCarousel(this, 1)">❯</button>
+        <div class="carousel-dots"></div>
+      </div>
+      <div class="detalle-info">
+        <h2>BR200</h2>
+        <span class="detalle-precio">Ref. $1,450</span>
+        <p class="detalle-desc">Máxima cilindrada y poder. Para los que no se conforman con menos y buscan una experiencia de conducción superior en cada viaje.</p>
+        <div class="specs-grid">
+          <div class="spec-item"><span class="spec-label">Motor</span><span class="spec-valor">200cc</span></div>
+          <div class="spec-item"><span class="spec-label">Potencia</span><span class="spec-valor">15 HP</span></div>
+          <div class="spec-item"><span class="spec-label">Velocidad</span><span class="spec-valor">110 km/h</span></div>
+          <div class="spec-item"><span class="spec-label">Tanque</span><span class="spec-valor">15 L</span></div>
+        </div>
+        <button class="btn-reservar-grande" onclick="abrirModal('BR200', '1450')">Cotizar esta Moto</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="contenedor">
+    <div class="footer-social">
+      <a href="https://www.instagram.com/bera_ciudad_ojeda" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.tiktok.com/@bera_ciudadojeda" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+        TikTok
+      </a>
+    </div>
+    <p>© 2024 BERA Motorcycles. Todos los derechos reservados.</p>
+    <p style="font-size: 12px; opacity: 0.5;">Página de demostración · Las imágenes son referenciales</p>
+  </div>
+</footer>
+
+<!-- MODAL DE COTIZACIÓN OPTIMIZADO -->
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="modal-cotizar" id="modalCotizar">
+  <button class="btn-cerrar-modal" id="btnCerrarModal">✕</button>
+  <h3>Cotiza tu Moto</h3>
+  <div class="subtitle" id="modalModelo">Modelo</div>
+  
+  <form id="formCotizar">
+    <input type="hidden" id="inputModelo" value="">
+    <input type="hidden" id="inputPrecio" value="">
+    
+    <div class="form-group">
+      <label>Nombre y Apellido</label>
+      <input type="text" id="inputNombre" required placeholder="Ej: Juan Pérez">
+    </div>
+    <div class="form-group">
+      <label>Cédula de Identidad</label>
+      <input type="text" id="inputCedula" required placeholder="Ej: V-12345678">
+    </div>
+    
+    <div class="form-group">
+      <label>Color de Preferencia</label>
+      <select id="inputColor">
+        <option value="Rojo">Rojo</option>
+        <option value="Negro">Negro</option>
+        <option value="Azul">Azul</option>
+        <option value="Gris">Gris</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Método de Pago</label>
+      <select id="inputPago">
+        <option value="Contado">Contado</option>
+        <option value="Financiado">Financiado</option>
+        <option value="Divisa">Divisa</option>
+      </select>
+    </div>
+    
+    <button type="submit" class="btn-enviar-cotizacion">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 2.9 1.2 2.9.8 3.4.8.5-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.5-.4zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.3c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+      Enviar Orden por WhatsApp
+    </button>
+  </form>
+</div>
+
+<script>
+  // --- SISTEMA DE VISTAS ---
+  function mostrarVista(idVista, seccionScrollear = null) {
+    document.querySelectorAll('.vista').forEach(vista => vista.classList.remove('activa'));
+    window.scrollTo(0, 0);
+
+    const vistaActiva = document.getElementById('vista-' + idVista);
+    setTimeout(() => {
+      vistaActiva.classList.add('activa');
+      
+      // Inicializar carruseles de la vista si los tiene
+      vistaActiva.querySelectorAll('.carousel-wrapper').forEach(wrapper => {
+        initCarousel(wrapper);
+      });
+      vistaActiva.querySelectorAll('.clientes-wrapper').forEach(wrapper => {
+        updateClientesArrows(wrapper);
+      });
+      
+    }, 10);
+
+    if (seccionScrollear) {
+      setTimeout(() => {
+        document.getElementById(seccionScrollear).scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+
+    cerrarMenu();
+  }
+
+  // --- MENÚ HAMBURGUESA ---
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburgerBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('activo');
+    hamburgerBtn.innerHTML = mobileMenu.classList.contains('activo') ? '✕' : '☰';
+  });
+
+  function cerrarMenu() {
+    mobileMenu.classList.remove('activo');
+    hamburgerBtn.innerHTML = '☰';
+  }
+
+  // --- CARRUSEL DE MOTOS (VISTAS INTERNAS) ---
+  function initCarousel(wrapper) {
+    const container = wrapper.querySelector('.carousel-container');
+    if (!container) return;
+    
+    const dotsContainer = wrapper.querySelector('.carousel-dots');
+    if (dotsContainer) {
+      const items = container.querySelectorAll('img');
+      dotsContainer.innerHTML = ''; 
+      items.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.className = 'dot' + (index === 0 ? ' active' : '');
+        dotsContainer.appendChild(dot);
+      });
+    }
+    updateArrows(wrapper);
+  }
+
+  function scrollCarousel(btn, direction) {
+    const wrapper = btn.parentElement;
+    const container = wrapper.querySelector('.carousel-container');
+    container.scrollBy({ left: container.offsetWidth * direction, behavior: 'smooth' });
+  }
+
+  function updateArrows(wrapper) {
+    const container = wrapper.querySelector('.carousel-container');
+    const prevBtn = wrapper.querySelector('.prev');
+    const nextBtn = wrapper.querySelector('.next');
+    const dots = wrapper.querySelectorAll('.dot');
+
+    if (!container || !prevBtn || !nextBtn) return;
+
+    const isAtStart = container.scrollLeft <= 10;
+    const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 10;
+
+    if (isAtStart) { prevBtn.classList.add('hidden'); } else { prevBtn.classList.remove('hidden'); }
+    if (isAtEnd) { nextBtn.classList.add('hidden'); } else { nextBtn.classList.remove('hidden'); }
+
+    if (dots.length > 0) {
+      const itemWidth = container.clientWidth;
+      const currentIndex = Math.round(container.scrollLeft / itemWidth);
+      dots.forEach((dot, index) => {
+        if(index === currentIndex) { dot.classList.add('active'); } else { dot.classList.remove('active'); }
+      });
+    }
+  }
+
+  // --- CARRUSEL DE CLIENTES ---
+  function scrollClientes(btn, direction) {
+    const wrapper = btn.parentElement;
+    const container = wrapper.querySelector('.clientes-container');
+    const scrollAmount = container.offsetWidth * direction; 
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+
+  function updateClientesArrows(wrapper) {
+    const container = wrapper.querySelector('.clientes-container');
+    const prevBtn = wrapper.querySelector('.prev');
+    const nextBtn = wrapper.querySelector('.next');
+    if (!container || !prevBtn || !nextBtn) return;
+
+    const isAtStart = container.scrollLeft <= 10;
+    const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 10;
+
+    if (isAtStart) { prevBtn.classList.add('hidden'); } else { prevBtn.classList.remove('hidden'); }
+    if (isAtEnd) { nextBtn.classList.add('hidden'); } else { nextBtn.classList.remove('hidden'); }
+  }
+
+  // --- LÓGICA DEL MODAL ---
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalCotizar = document.getElementById('modalCotizar');
+  const btnCerrarModal = document.getElementById('btnCerrarModal');
+  const modalModelo = document.getElementById('modalModelo');
+  const inputModelo = document.getElementById('inputModelo');
+  const inputPrecio = document.getElementById('inputPrecio');
+  const formCotizar = document.getElementById('formCotizar');
+
+  function abrirModal(modelo, precio) {
+    modalModelo.textContent = `Moto: ${modelo} (Ref. $${precio})`;
+    inputModelo.value = modelo;
+    inputPrecio.value = precio;
+    modalCotizar.classList.add('activo');
+    modalOverlay.classList.add('activo');
+  }
+
+  function cerrarModal() {
+    modalCotizar.classList.remove('activo');
+    modalOverlay.classList.remove('activo');
+  }
+
+  btnCerrarModal.addEventListener('click', cerrarModal);
+  modalOverlay.addEventListener('click', cerrarModal);
+
+  formCotizar.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const nombre = document.getElementById('inputNombre').value;
+    const cedula = document.getElementById('inputCedula').value;
+    const color = document.getElementById('inputColor').value;
+    const pago = document.getElementById('inputPago').value;
+    const modelo = inputModelo.value;
+    const precio = inputPrecio.value;
+    
+    let mensaje = `¡Hola Motos BERA! 👋 Quisiera generar una orden.\n\n`;
+    mensaje += `🏍️ *Modelo:* ${modelo}\n`;
+    mensaje += `💰 *Precio Ref:* $${precio}\n`;
+    mensaje += `🎨 *Color:* ${color}\n`;
+    mensaje += `💳 *Pago:* ${pago}\n`;
+    mensaje += `👤 *Cliente:* ${nombre}\n`;
+    mensaje += `🪪 *Cédula:* ${cedula}\n\n`;
+    mensaje += `¿Me confirman disponibilidad para procesar la compra?`;
+
+    const numeroWA = '584246369941'; 
+    const urlWA = `https://wa.me/${numeroWA}?text=${encodeURIComponent(mensaje)}`;
+    
+    window.open(urlWA, '_blank');
+    cerrarModal();
+    formCotizar.reset();
+  });
+
+  // --- ANIMACIONES AL SCROLL (REVEAL) ---
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { root: null, rootMargin: '0px', threshold: 0.15 });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+</script>
+
+</body>
+</html>
